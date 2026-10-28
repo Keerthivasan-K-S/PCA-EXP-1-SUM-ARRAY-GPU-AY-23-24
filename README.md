@@ -8,6 +8,7 @@ PCA-GPU-based-vector-summation.-Explore-the-differences.
 i) Using the program sumArraysOnGPU-timer.cu, set the block.x = 1023. Recompile and run it. Compare the result with the execution configuration of block.x = 1024. Try to explain the difference and the reason.
 
 ii) Refer to sumArraysOnGPU-timer.cu, and let block.x = 256. Make a new kernel to let each thread handle two elements. Compare the results with other execution confi gurations.
+
 ## AIM:
 
 To perform vector addition on host and device.
@@ -15,9 +16,6 @@ To perform vector addition on host and device.
 ## EQUIPMENTS REQUIRED:
 Hardware – PCs with NVIDIA GPU & CUDA NVCC
 Google Colab with NVCC Compiler
-
-
-
 
 ## PROCEDURE:
 
@@ -251,6 +249,7 @@ int main(int argc, char **argv)
     return(0);
 }
 ```
+
 ## OUTPUT:
 ### ilen=256
 <img width="1000" height="143" alt="image" src="https://github.com/user-attachments/assets/39021fe0-babb-4c49-ba99-54b3c1eb6070" />
@@ -280,7 +279,7 @@ int main(int argc, char **argv)
 - **1023 threads:** Is not divisible by 32, so the last warp has one inactive thread.
 - **1024 threads:** Is divisible by 32 and requires the fewest blocks among these configurations.
 
-### Conclusion
+## Conclusion
 
 All four configurations produce correct results. The 1024-thread block is the fastest in the given output. Small timing differences may occur due to GPU scheduling and measurement variations.
 Thus, Implementation of sum arrays on host and device is done in nvcc cuda using random number.
