@@ -252,7 +252,35 @@ int main(int argc, char **argv)
 }
 ```
 ## OUTPUT:
+### ilen=256
+<img width="1000" height="143" alt="image" src="https://github.com/user-attachments/assets/39021fe0-babb-4c49-ba99-54b3c1eb6070" />
+
+### ilen=512
 <img width="1255" height="180" alt="image" src="https://github.com/user-attachments/assets/73e39e9d-5af1-4bcf-9741-0d5e1727c453" />
 
-## RESULT:
+### ilen=1023
+<img width="873" height="148" alt="image" src="https://github.com/user-attachments/assets/053e381b-d099-4d41-ab78-cbc4848054aa" />
+
+### ilen=1024
+<img width="971" height="146" alt="image" src="https://github.com/user-attachments/assets/2a61e147-ea12-4333-9e72-54f070f8554c" />
+
+## Comparison of Block Sizes
+
+| Block Size | Number of Blocks | GPU Time (sec) | Result |
+|---:|---:|---:|---|
+| 256 | 65536 | 0.000934 | Arrays match |
+| 512 | 32768 | 0.000948 | Arrays match |
+| 1023 | 16401 | 0.000962 | Arrays match |
+| 1024 | 16384 | 0.000915 | Arrays match |
+
+## Explanation
+
+- **256 threads:** Requires more blocks to process the array.
+- **512 threads:** Uses fewer blocks than 256, but takes slightly more time in this run.
+- **1023 threads:** Is not divisible by 32, so the last warp has one inactive thread.
+- **1024 threads:** Is divisible by 32 and requires the fewest blocks among these configurations.
+
+### Conclusion
+
+All four configurations produce correct results. The 1024-thread block is the fastest in the given output. Small timing differences may occur due to GPU scheduling and measurement variations.
 Thus, Implementation of sum arrays on host and device is done in nvcc cuda using random number.
